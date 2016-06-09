@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>Default application parameter List</comment>
+	<entry key="mailHost">pop3.163.com</entry>
+	<entry key="mailServerPort">995</entry>
+	<entry key="mailUserName">zhang_onlinetv@163.com</entry>
+	<entry key="mailPassword">vvv</entry>
+	<entry key="mailFolder">INBOX</entry>
+	
+	<entry key="receiverName">edge.cdn.youtv.de</entry>	<!-- the string that will in download link -->
+	<entry key="quality">hq</entry>			<!-- file quality, NQ or HQ  -->
+	<entry key="downloadFolder">D:\001_Download\onlineTV</entry>
+	<entry key="downloadApp">c:\tools\GnuWin32\bin\wget.exe -b -nv --append-output=download.log </entry>
+	
+	
+	<entry key="topic_Heute_Joumal">heute-journal_ZDF</entry>            <!-- topic name that will be saved in separate folder  -->
+	<entry key="topic_GTM">Germanys_next_Topmodel_ProSieben</entry>            <!-- topic name that will be saved in separate folder  -->
+	
+</properties>
