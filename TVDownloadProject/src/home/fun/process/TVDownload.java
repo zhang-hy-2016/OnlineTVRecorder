@@ -2,9 +2,11 @@ package home.fun.process;
 import home.fun.mail.GeneralClientPop;
 
 
+
 import java.io.*; 
 import java.util.Properties;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import java.util.Iterator;
 import java.util.Hashtable;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 
 
@@ -33,8 +36,10 @@ import org.apache.log4j.Logger;
  * - use GeneralClientPop instead of GmailClient 
  *
  * @version 2.0 (17.04.2014)
- * - extract download link from   yourtv.de
+ * - extract download link from yourtv.de
  *
+ * @version 2.1 (09.06.2016)
+ * - enable quality check in mp4 link filtering
  */
 public class TVDownload {
 	
@@ -77,12 +82,17 @@ public class TVDownload {
 	
 	public void startProcess() throws Exception{
 		List<String> linkList = extractMainLink();
+		
+		
+
+		
 		if (linkList.isEmpty()){
 			logger.info("there is no useful link for download job!");
 			return;
 		}
 
-        String downloadFolderRoot = configure.getProperty("downloadFolder");
+
+		String downloadFolderRoot = configure.getProperty("downloadFolder");
         File rootFolder = new File(downloadFolderRoot);
         
 		for (Iterator<String> it = linkList.iterator(); it.hasNext();){
@@ -221,23 +231,18 @@ public class TVDownload {
 	 * @return null for not matched body
 	 */
 	private String getDownloadLink(String bodyText){
-//		String titleText = "BONG.TV";
-//		
-//		if (bodyText.indexOf(titleText) < 0){		    
-//			return null;
-//		}
+
 		return extractHtmlLink(bodyText); 
 	}
 	
 	
 	/**
-	 * 
+	 * return the first matched mp4 download link 
 	 * @param text
 	 * @return
 	 */
 	private String extractHtmlLink(String text){
-	    
-	    
+		
 		
 		/**
 		 * (		#start of group #1
@@ -335,19 +340,20 @@ public class TVDownload {
 					  String receiverName = configure.getProperty("receiverName");
 					  
 					  
-//					  if (linkText.indexOf(quality) > -1 
-//							  	&& mp4Link.indexOf(receiverName) > -1){
-//						  return mp4Link;
-//					  }
-//					  
+					  if (linkText.indexOf(quality) > -1 
+							  	&& mp4Link.indexOf(receiverName) > -1){
+						  logger.debug("I got link that I want:"+ mp4Link);
+						  return mp4Link;
+					  }
+					  
 					  /* new in version 1.2
 					   * remove the quality check 
 					   * 
 					   * */
-	                   
+					  /*	
                       if ( mp4Link.indexOf(receiverName) > -1){
                           return mp4Link;
-                      }
+                      }*/
 
 				  
 				  } // end of mp4 link search 
