@@ -237,7 +237,8 @@ public class TVDownload {
 	
 	
 	/**
-	 * return the first matched mp4 download link 
+	 * return the first matched mp4 download link <br>
+	 * example   http://edge.cdn.youtv.de/3382357/2016-07-08_22-00_Heute-Journal_zdf_hq.mp4 
 	 * @param text
 	 * @return
 	 */
@@ -345,6 +346,8 @@ public class TVDownload {
 						  logger.debug("I got link that I want:"+ mp4Link);
 						  return mp4Link;
 					  }
+					  
+					  logger.info("The Mp4 link don't contains [" + quality + "] and ["+ receiverName +"]");
 					  
 					  /* new in version 1.2
 					   * remove the quality check 
